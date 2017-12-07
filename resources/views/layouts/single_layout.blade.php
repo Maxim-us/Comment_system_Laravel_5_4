@@ -45,6 +45,7 @@
     <div class="col-sm-9">
       
       @yield('content')
+      
 
       <!-- comments -->
       @if(Auth::guest())
@@ -107,6 +108,8 @@
       @else
       <h4>Leave a Comment:</h4>
       <form role="form">
+
+        <input type="hidden" value="{{ $page_identifier }}" />
         <div class="form-group">
           <textarea class="form-control" rows="3" required></textarea>
         </div>

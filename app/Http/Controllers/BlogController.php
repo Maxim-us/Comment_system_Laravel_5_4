@@ -14,11 +14,13 @@ class BlogController extends Controller
 
     public function iLoveFood()
     {
-    	return view('blog.i_love_food');
+    	$page_identifier = 'iLoveFood';
+    	return view('blog.i_love_food', compact('page_identifier'));
     }
 
     public function officiallyBlogging()
     {
-    	return view('blog.officially_blogging');
+    	$page_identifier = 'officiallyBlogging';
+    	return view('blog.officially_blogging', compact('page_identifier'));
     }
 }
