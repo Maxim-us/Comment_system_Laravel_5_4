@@ -20,3 +20,5 @@ Route::get('/show_comments', 'CommentsController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/comment', 'CommentsController@store');

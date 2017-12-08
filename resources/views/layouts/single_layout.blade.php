@@ -16,6 +16,14 @@
       background-color: #f1f1f1;
       height: 100%;
     }
+
+    .float-right{
+      float: right;
+    }
+
+    .mx-answer{
+      display: none;
+    }
     
     /* Set black background color, white text and some padding */
     footer {
@@ -44,133 +52,10 @@
 
     <div class="col-sm-9">
       
-      @yield('content')
-      
+      @yield('content')      
 
       <!-- comments -->
-      @if(Auth::guest())
-
-      <h4>Sign in to post a comment</h4>
-      <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-          {{ csrf_field() }}
-
-          <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-              <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-              <div class="col-md-6">
-                  <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                  @if ($errors->has('email'))
-                      <span class="help-block">
-                          <strong>{{ $errors->first('email') }}</strong>
-                      </span>
-                  @endif
-              </div>
-          </div>
-
-          <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-              <label for="password" class="col-md-4 control-label">Password</label>
-
-              <div class="col-md-6">
-                  <input id="password" type="password" class="form-control" name="password" required>
-
-                  @if ($errors->has('password'))
-                      <span class="help-block">
-                          <strong>{{ $errors->first('password') }}</strong>
-                      </span>
-                  @endif
-              </div>
-          </div>
-
-          <div class="form-group">
-              <div class="col-md-6 col-md-offset-4">
-                  <div class="checkbox">
-                      <label>
-                          <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                      </label>
-                  </div>
-              </div>
-          </div>
-
-          <div class="form-group">
-              <div class="col-md-8 col-md-offset-4">
-                  <button type="submit" class="btn btn-primary">
-                      Login
-                  </button>
-
-                  <a class="btn btn-link" href="{{ route('password.request') }}">
-                      Forgot Your Password?
-                  </a>
-              </div>
-          </div>
-      </form>
-
-      @else
-      <h4>Leave a Comment:</h4>
-      <form role="form">
-
-        <input type="hidden" value="{{ $page_identifier }}" />
-        <div class="form-group">
-          <textarea class="form-control" rows="3" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-success">Submit</button>
-      </form>
-      <br><br>
-      @endif
-
-      
-      <p><span class="badge">2</span> Comments:</p><br>
-      
-      <div class="row">
-        <div class="col-sm-2 text-center">
-          <img src="https://78.media.tumblr.com/84365fe19039b5fd917d6d449ca86290/tumblr_op4lb5DPRe1qg6rkio1_500.jpg" class="img-circle" height="65" width="65" alt="Avatar">
-        </div>
-        <div class="col-sm-10">
-          <h4>Anja <small>Sep 29, 2015, 9:12 PM</small></h4>
-          <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <br>
-        </div>
-        <div class="col-sm-2 text-center">
-          <img src="https://78.media.tumblr.com/84365fe19039b5fd917d6d449ca86290/tumblr_op4lb5DPRe1qg6rkio1_500.jpg" class="img-circle" height="65" width="65" alt="Avatar">
-        </div>
-        <div class="col-sm-10">
-          <h4>John Row <small>Sep 25, 2015, 8:25 PM</small></h4>
-          <p>I am so happy for you man! Finally. I am looking forward to read about your trendy life. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <br>
-          <!-- children -->
-          <div class="row">
-            <div class="col-sm-2 text-center">
-              <img src="https://78.media.tumblr.com/84365fe19039b5fd917d6d449ca86290/tumblr_op4lb5DPRe1qg6rkio1_500.jpg" class="img-circle" height="65" width="65" alt="Avatar">
-            </div>
-            <div class="col-xs-10">
-              <h4>Nested Bro <small>Sep 25, 2015, 8:28 PM</small></h4>
-              <p>Me too! WOW!</p>
-              <br>
-                <!-- children -->
-                <div class="row">
-                  <div class="col-sm-2 text-center">
-                    <img src="https://78.media.tumblr.com/84365fe19039b5fd917d6d449ca86290/tumblr_op4lb5DPRe1qg6rkio1_500.jpg" class="img-circle" height="65" width="65" alt="Avatar">
-                  </div>
-                  <div class="col-xs-10">
-                    <h4>Nested Bro <small>Sep 25, 2015, 8:28 PM</small></h4>
-                    <p>Me too! WOW!</p>
-                    <br>
-                    <!-- children -->
-
-                    <!-- children -->
-                  </div>
-                </div>
-                <!-- children -->
-            </div>
-          </div>
-          <!-- children -->
-
-
-         
-
-
-        </div>
-      </div>
+      @include('comments._comments_body')
       
     </div>
   </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
+
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -12,10 +14,22 @@ class BlogController extends Controller
     	return view('blog.index');
     }
 
-    public function iLoveFood()
+    public function iLoveFood( Comment $comment )
     {
     	$page_identifier = 'iLoveFood';
-    	return view('blog.i_love_food', compact('page_identifier'));
+
+    	$comments = $comment->orderBy('created_at', 'desc')->get();
+
+    	$count_comments = $comments->count();
+
+    	$user_id = auth()->id();
+
+    	return view('blog.i_love_food', [
+    		'page_identifier' => $page_identifier,
+    		'comments' => $comments,
+    		'count_comments' => $count_comments,
+    		'user_id' => $user_id
+    	]);
     }
 
     public function officiallyBlogging()
