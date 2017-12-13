@@ -3,9 +3,8 @@
 
 	{{ csrf_field() }}
 
-	<input type="hidden" name="page_identifier" value="{{ $page_identifier }}" />
 	<input type="hidden" name="parent_id" value="" />
-	<input type="hidden" name="user_id" value="{{ $user_id }}" />
+	<input type="hidden" name="blog_id" value="{{ $article->id }}" />
 
 	<div class="form-group">
 	  <textarea class="form-control" rows="3" name="comment" required></textarea>

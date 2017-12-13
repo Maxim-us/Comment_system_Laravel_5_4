@@ -21,10 +21,9 @@ class CommentsController extends Controller
 
 	public function store(Request $request)
 	{
-		// DB::table('comments')->create( $request->all() );
 		$comment = new Comment;
-		$comment->user_id = $request->user_id;
-		$comment->page_identifier = $request->page_identifier;
+		$comment->user_id = auth()->id();
+		$comment->blog_id = $request->blog_id;
 		$comment->parent_id = $request->parent_id;
 		$comment->comment = $request->comment;
 

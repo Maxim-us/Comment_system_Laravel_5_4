@@ -2,16 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
+use App\Blog;
 
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {    
 
-    public function index()
+    public function index(Blog $blog)
+    {   
+
+    	$articles = Blog::all();
+    	return view('blog.index', compact('articles'));
+
+    }
+
+    public function article(Blog $blog, $article)
     {
-    	return view('blog.index');
+    	$article = Blog::find($article);
+    	$article->load('comments.user');
+    	return view('blog.article', compact('article'));
     }
 
     public function iLoveFood( Comment $comment )
