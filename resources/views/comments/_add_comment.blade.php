@@ -3,7 +3,7 @@
 
 	{{ csrf_field() }}
 
-	<input type="hidden" name="parent_id" value="" />
+	<input type="hidden" name="parent_id" value="0" />
 	<input type="hidden" name="blog_id" value="{{ $article->id }}" />
 
 	<div class="form-group">
