@@ -15,6 +15,6 @@ class Comment extends Model
 
 	public function blog()
 	{
-		return $this->belongsTo(Blog::class)->orderBy('created_at', 'desc');
+		return $this->belongsTo(Blog::class);
 	}
 }

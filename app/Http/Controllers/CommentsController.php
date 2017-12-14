@@ -11,10 +11,7 @@ class CommentsController extends Controller
 {
     public function index( Comment $comment )
     {
-    	// $comment = Comment::with('users.user')->get();
-    	//$comment->load('user.comment');
     	$comments = Comment::all();
-    	//$user = $comment->user;
 
     	return $comments;
     }

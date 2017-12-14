@@ -13,11 +13,7 @@
 
 Route::get('/', 'BlogController@index');
 
-Route::get('/blog/i_love_food', 'BlogController@iLoveFood');
 Route::get('/blog/{article}', 'BlogController@article');
-
-Route::get('/blog/officially_blogging', 'BlogController@officiallyBlogging');
-Route::get('/show_comments', 'CommentsController@index');
 
 Auth::routes();
 
