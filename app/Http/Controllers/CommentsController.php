@@ -18,6 +18,14 @@ class CommentsController extends Controller
 
 	public function store(Request $request)
 	{
+
+		$this->validate($request, [
+			'comment' => 'required'
+		],
+		[
+			'required' => 'Please enter your message!'
+		]);
+
 		$comment = new Comment;
 		$comment->user_id = auth()->id();
 		$comment->blog_id = $request->blog_id;

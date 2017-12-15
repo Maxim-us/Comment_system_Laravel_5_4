@@ -1,9 +1,37 @@
 
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+// @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+.sidenav {
+	background-color: #f1f1f1;
+	height: 100%;
+}
+.mx-answer{
+	display: none;
+}
+.mx-answer_link{    
+	float: right;
+}
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+}
+
+/*media*/
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	} 
+}
