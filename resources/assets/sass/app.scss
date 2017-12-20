@@ -1,12 +1,14 @@
-
 // Fonts
-// @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
 // Variables
-@import "variables";
+//@import "variables";
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../bootstrap/css/bootstrap.min.css";
+
+// Fontawesome
+@import "../font-awesome-4.7.0/css/font-awesome.min.css";
 
 
 .sidenav {
@@ -23,6 +25,19 @@ footer {
 	background-color: #555;
 	color: white;
 	padding: 15px;
+}
+.float-left{
+	float: left;
+}
+.float-right{
+	float: right;
+}
+.bg-secondary{
+	background-color: #868e96;
+	text-align: right;
+}
+.like-button_wrap{
+	display: inline-block;
 }
 
 /*media*/

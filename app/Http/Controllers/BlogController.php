@@ -19,6 +19,7 @@ class BlogController extends Controller
     {
     	$article = Blog::find($article);
     	$article->load('comments.user');
+        $article->load('comments.votes');
 
         $count_comments = $article->comments->count();
         

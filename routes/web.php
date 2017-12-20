@@ -20,3 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::post('/comment', 'CommentsController@store');
+Route::get('/comment_logs', 'CommentsController@index');
+
+// vote
+Route::post('/vote', 'VotesController@index');
