@@ -22,12 +22,19 @@ class Comment extends Model
 		return $this->hasMany(Vote::class);
 	}
 
-	public function votesLike(){
+	public function votesLike()
+	{
 		return $this->votes()->where('like', 1);
 	}
 
-	public function votesDisLike(){
+	public function votesDisLike()
+	{
 		return $this->votes()->where('dislike', 1);
+	}
+
+	public function votesUser()
+	{
+		return $this->votes()->where('user_id', auth()->id());
 	}
 
 }

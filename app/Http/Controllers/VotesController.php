@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class VotesController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, Vote $vote)
     {
 
     	$voice = new Vote;
@@ -19,7 +19,11 @@ class VotesController extends Controller
     	$voice->like = $request->like;
     	$voice->dislike = $request->dislike;
 
-    	$voice->save();
+        $countVotesFromUser = Vote::all()->where('user_id', auth()->id())->where('comment_id', $voice->comment_id)->count();
 
+        if($countVotesFromUser < 1){
+            $voice->save();
+        }
+        
     }
 }

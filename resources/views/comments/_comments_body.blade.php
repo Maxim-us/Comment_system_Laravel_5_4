@@ -28,8 +28,13 @@
 
 					    @if(!Auth::guest())
 
-						    <div class="bg-secondary mx-wrap_votes" data-user_id="{{ $comment->user->id }}" data-comment_id="{{ $comment->id }}" data-blog_id="{{ $article_id }}">
-								<div class="like-button_wrap">
+						    <div class="bg-secondary mx-wrap_votes" data-user_id="{{ $comment->user->id }}" data-comment_id="{{ $comment->id }}" data-blog_id="{{ $article_id }}" <?php if($comment->votesUser->count() > 0){ echo 'data-is_vote="true"'; } ?>>
+
+						    	@if($comment->votesUser->count() > 0)
+									<span>You already voted </span>
+								@endif
+
+								<div class="like-button_wrap">									
 									<button class="like-button btn-like"><i class="fa fa-thumbs-up text-success" aria-hidden="true"></i></button> - 
 									<span class="count_votes like">{{ $comment->votesLike->count() }}</span>
 								</div>
@@ -102,8 +107,14 @@
 		    <p>{{ $comment->comment }}</p>
 
 		    @if(!Auth::guest())
-			    <div class="bg-secondary mx-wrap_votes" data-user_id="{{ $comment->user->id }}" data-comment_id="{{ $comment->id }}" data-blog_id="{{ $article->id }}">
-					<div class="like-button_wrap">
+
+			    <div class="bg-secondary mx-wrap_votes" data-user_id="{{ $comment->user->id }}" data-comment_id="{{ $comment->id }}" data-blog_id="{{ $article->id }}" <?php if($comment->votesUser->count() > 0){ echo 'data-is_vote="true"'; } ?>>
+
+			    	@if($comment->votesUser->count() > 0)
+						<span>You already voted </span>
+					@endif
+
+					<div class="like-button_wrap">						
 						<button class="like-button btn-like"><i class="fa fa-thumbs-up text-success" aria-hidden="true"></i></button> - 
 						<span class="count_votes like">{{ $comment->votesLike->count() }}</span>
 					</div>
@@ -159,23 +170,51 @@
 
     // Votes
     $('.like-button').on('click', function(){
-    	var user_id = $(this).parent().parent().attr('data-user_id');
-    	var comment_id = $(this).parent().parent().attr('data-comment_id');
-    	var blog_id = $(this).parent().parent().attr('data-blog_id');
+
+    	var isVoted = $(this).parent().parent().attr('data-is_vote');    	
+    	
+    	if(!isVoted){
+
+	    	var like = likeOrDislike($(this)).like;
+	    	var dislike = likeOrDislike($(this)).dislike;
+    		
+    		var user_id = $(this).parent().parent().attr('data-user_id');
+	    	var blog_id = $(this).parent().parent().attr('data-blog_id');
+	    	var comment_id = $(this).parent().parent().attr('data-comment_id');
+
+	    	var dataQuery = '_token={{ csrf_token() }}&comment_id='+comment_id+'&blog_id='+blog_id+'&like='+like+'&dislike='+dislike;
+
+	    	// query for DB
+	    	ajaxQuery($(this), dataQuery, comment_id, like, dislike);
+
+    	}
+    	
+    });
+
+    /* help-functions */
+    function likeOrDislike(_this){
 
     	var like = 0;
-    	var dislike = 0;
-    	if($(this).hasClass('btn-like')){
+	   	var dislike = 0;
+
+    	if(_this.hasClass('btn-like')){
     		like = 1;
     		dislike = 0;
     	} else{
     		like = 0;
     		dislike = 1;
     	}
-    	
-    	var _data = '_token={{ csrf_token() }}&comment_id='+comment_id+'&blog_id='+blog_id+'&like='+like+'&dislike='+dislike;
 
-    	 $.ajax( {
+    	return {
+    		like: like,
+    		dislike: dislike
+    	};
+    }
+
+    // ajax query
+    function ajaxQuery(_this, _data, _comment_id, _like, _dislike ){    	
+
+    	$.ajax( {
 	    	type: 'POST',
 	    	url: '/vote',
 	    	data: _data,
@@ -185,26 +224,34 @@
 
 	    			var dataCommentId = $(this).attr('data-comment_id');
 	    			dataCommentId = parseInt(dataCommentId);
-	    			comment_id = parseInt(comment_id);	    			
+	    			comment_id = parseInt(_comment_id);
 
 	    			if(dataCommentId === comment_id){
 	    				var voteLike = $(this).find('.like').text();
 
-	    				voteLike = parseInt(voteLike)+like;
+	    				voteLike = parseInt(voteLike)+_like;
 	    				var voteDisLike = $(this).find('.dislike').text();
 
-	    				voteDisLike = parseInt(voteDisLike)+dislike;
+	    				voteDisLike = parseInt(voteDisLike)+_dislike;
 
 	    				$(this).find('.like').text(voteLike);
 	    				$(this).find('.dislike').text(voteDisLike);
+
+	    				// Voting is closed
+	    				$(this).prepend('<span>You already voted </span>');
+	    				$(this).find('.like-button').removeClass('like-button');
+	    				$(this).attr('data-is_vote', 'true');
+
 	    			}
 
 	    		});
-	    		//console.log('You voted!');
+	    		// show logs
+	    		//console.log(data);
 	    		
 	    	}
 	    } );
-    });
+    }
+
     
   });
 </script>
