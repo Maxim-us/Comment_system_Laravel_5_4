@@ -23,6 +23,7 @@
 					  <div class="col-xs-10">
 					    <h4>
 					    	<span>{{ $comment->user->name }} <small>{{ $comment->created_at }}</small></span>
+					    	<span style="float: right;"><i class="fa fa-reply" aria-hidden="true"></i> {{ $comment->replyTo($comment->parent_id) }}</span>
 					    </h4>
 					    <p>{{ $comment->comment }}</p>
 

@@ -37,4 +37,10 @@ class Comment extends Model
 		return $this->votes()->where('user_id', auth()->id());
 	}
 
+	public function replyTo($parent_id){
+		$comment_parent_user_id = $this->find($parent_id)->user_id;
+		$reply_to_user_name = $this->user->find($comment_parent_user_id)->name;
+		return $reply_to_user_name;
+	}
+
 }
